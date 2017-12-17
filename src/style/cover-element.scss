@@ -1,0 +1,24 @@
+@import "./var.scss";
+.login-form {
+    .form-input {
+        .el-input__inner {
+            background: none !important;
+            color: $white;
+            border: 0;
+            outline: none;
+            border-bottom: $border-white;
+            border-radius: 0;
+        }
+    }
+    .submit_btn {
+        transition: all .5s;
+        display: block;
+        width: 100%;
+        background: none;
+        border: $border-white;
+        &:hover {
+            color: $blue;
+            border: $border-blue;
+        }
+    }
+}

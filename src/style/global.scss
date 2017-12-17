@@ -1,0 +1,30 @@
+html {
+    font-family: "Microsoft YaHei", "微软雅黑", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", Arial, sans-serif; // font-weight: 100;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+}
+
+#app, body, html{
+    height: 100%;
+}
+
+.drop-enter-active, .drop-leave-active {
+    transition: all 1s;
+}
+.drop-enter, .drop-leave-active {
+    transform: translate3d(0, -100px, 0);
+    opacity: 0;
+} 
