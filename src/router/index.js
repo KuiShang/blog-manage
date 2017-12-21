@@ -15,7 +15,7 @@ export default new Router({
       path: '/manage',
       component: manage,
       children: [{
-        path: '',
+        path: 'pageview',
         component: home,
         name: 'home'
       }]
