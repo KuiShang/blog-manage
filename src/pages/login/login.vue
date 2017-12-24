@@ -49,7 +49,8 @@ export default {
               type: 'success',
               message: '登录成功'
             })
-            this.$router.push({ name: 'home' })
+            this.$store.dispatch('saveUser', res.data.data)
+            this.$router.push({ name: 'pageview' })
           } else {
             this.$message({
               type: 'error',

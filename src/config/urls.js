@@ -1,5 +1,7 @@
 const urls = {
-  login: '/login'
+  'login': '/login',
+  'modifyPsw': '/user/modify',
+  'logout': '/logout'
 }
 
 export default urls
