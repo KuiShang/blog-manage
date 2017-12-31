@@ -16,7 +16,7 @@ export default {
       url: this.$route.name,
       pageData: {},
       editData: {},
-      editDialog: false,
+      editDialog2: false,
       listLoading: false,
       saveLoading: false,
       saveOptions: {}

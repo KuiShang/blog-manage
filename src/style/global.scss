@@ -1,3 +1,4 @@
+@import './var.scss';
 html {
     font-family: "Microsoft YaHei", "微软雅黑", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", Arial, sans-serif; // font-weight: 100;
 }
@@ -28,3 +29,25 @@ h6 {
     transform: translate3d(0, -100px, 0);
     opacity: 0;
 } 
+.flexrow{
+    display: flex;
+    margin: 0px -$flex-padding;
+    [class*="flex-"] {
+      padding: 0px $flex-padding;
+    }
+  }
+  .flex{
+    display: flex;
+  }
+  .flex-1{
+    flex: 1;
+  }
+  .flex-2{
+    flex: 2;
+  }
+  .flex-3{
+    flex: 3;
+  }
+  .flex-4{
+    flex: 4;
+  }

@@ -53,7 +53,7 @@
       <el-col :span = "menuShow ? 20: 24" class="content">
         <div class="content-header">
           <header class="header">
-            <h2 class="title">浏览记录</h2>
+            <h2 class="title">{{defaultItem.text || $route.title}}</h2>
             <div class="user-operator">
               <span class="operator" @click="dialogVisible = true">
                 <i class="icon iconfont font-kk-shenfenzheng"></i>
@@ -116,6 +116,29 @@ export default {
         this.$router.push({name: 'login'})
       }
     }
+  },
+  computed: {
+    defaultItem () {
+      let name = this.$route.name
+      let defaultItem = {}
+      this.menuItems.forEach(item => {
+        if (item.name === name) {
+          defaultItem = item
+        } else if (item.children) {
+          item.children.forEach(child => {
+            if (child.name === name) {
+              defaultItem = child
+              defaultItem.parentId = item.id
+            }
+          })
+        }
+        if (defaultItem.name) return false
+      })
+      if (defaultItem.id) {
+        this.lastItem = defaultItem
+      }
+      return this.lastItem
+    }
   }
 }
 </script>
@@ -151,13 +174,13 @@ export default {
       }
       &:hover {
          .manager {
-          span:nth-of-type(1){transform:rotateY(180deg);color:#0060FF;};
-          span:nth-of-type(2){transform:rotateY(180deg);color:#243CDB;};
-          span:nth-of-type(3){transform:rotateY(180deg);color:#4818B7;};
-          span:nth-of-type(4){transform:rotateY(180deg);color:#6C0093;};
-          span:nth-of-type(5){transform:rotateY(180deg);color:#90006F;};
-          span:nth-of-type(6){transform:rotateY(180deg);color:#B4004B;};
-          span:nth-of-type(7){transform:rotateY(180deg);color:#D80027;};
+          span:nth-of-type(1){transform:rotateY(360deg);color:#0060FF;};
+          span:nth-of-type(2){transform:rotateY(360deg);color:#243CDB;};
+          span:nth-of-type(3){transform:rotateY(360deg);color:#4818B7;};
+          span:nth-of-type(4){transform:rotateY(360deg);color:#6C0093;};
+          span:nth-of-type(5){transform:rotateY(360deg);color:#90006F;};
+          span:nth-of-type(6){transform:rotateY(360deg);color:#B4004B;};
+          span:nth-of-type(7){transform:rotateY(360deg);color:#D80027;};
         }
       }
     }
@@ -186,6 +209,7 @@ export default {
           transition: all .5s;
           &:hover {
             color: $blue;
+            font-size: 150%;
           }
         }
         .operator + .operator {

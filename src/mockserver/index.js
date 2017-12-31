@@ -28,4 +28,18 @@ mock.onPost(urls.logout).reply(200, {
   data: {
   }
 })
+// 获取目录列表
+mock.onGet(urls.catalogList).reply(200, {
+  status: 0,
+  message: '',
+  data: {
+  }
+})
+// TODO: 获取pv
+mock.onGet(urls.pv).reply(200, {
+  status: 0,
+  message: '',
+  data: {
+  }
+})
 export default mock
