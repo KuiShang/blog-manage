@@ -9,6 +9,8 @@ const comment = r => require.ensure([], () => r(require('@/pages/comment/comment
 const emailconfig = r => require.ensure([], () => r(require('@/pages/emailconfig/emailconfig')), 'emailconfig')
 const setting = r => require.ensure([], () => r(require('@/pages/setting/setting')), 'setting')
 const tag = r => require.ensure([], () => r(require('@/pages/tag/tag')), 'tag')
+const NotFoundComponent = r => require.ensure([], () => r(require('@/pages/NotFoundComponent/NotFoundComponent')), 'NotFoundComponent')
+
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -57,6 +59,11 @@ export default new Router({
           name: 'tag'
         }
       ]
+    },
+    {
+      path: '*',
+      name: 'NotFoundComponent',
+      component: NotFoundComponent
     }
   ]
 })

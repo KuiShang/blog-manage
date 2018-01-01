@@ -37,6 +37,7 @@
             :upload="uploadConfig"
             :options="MarkdownOptions"
             @upload-error="uploadError"
+            height="100%"
             @save-history="saveHistory"
             />
         </div>
@@ -116,11 +117,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .article-editor {
-    height: 80vh;
+    // height: 80vh;
 }
 .markdown-editor{
-  // height: 70vh;
-   height: 100%;
+   height: 68vh;
+   // height: 100%;
 }
 .btn-container {
     position: absolute;
