@@ -1,4 +1,5 @@
 const urls = {
+  'getToken': '/goken',
   'login': '/login',
   'modifyPsw': '/user/modify',
   'logout': '/logout',

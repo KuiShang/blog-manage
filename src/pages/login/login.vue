@@ -66,6 +66,13 @@ export default {
           return false
         }
       })
+    },
+    async getToken (username, password) {
+      const res = await this.axios.post(urls.getToken, {
+        username,
+        password
+      })
+      
     }
   }
 }
