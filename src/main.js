@@ -10,7 +10,7 @@ import * as filters from './filters/filter'
 import axios from './config/axiosWrapper'
 import VueAxios from 'vue-axios'
 // 数据模拟server
-require('./mockserver/index.js')
+// require('./mockserver/index.js')
 // 全局样式
 require('./style/index.scss')
 const isProd = process.env.NODE_ENV === 'production'

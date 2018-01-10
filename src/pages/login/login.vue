@@ -20,6 +20,7 @@
 </template>
 <script>
 import urls from '@/config/urls'
+import {storageKey, setStorage} from '@/utils/storage'
 export default {
   name: 'login',
   data () {
@@ -39,11 +40,17 @@ export default {
     async submitForm (formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
+          let resToken = await this.getToken(this.loginForm.username, this.loginForm.password)
+          if (resToken.data.token) {
+            setStorage(storageKey.TOKEN, resToken.data.token)
+          }
+          // TODO: 获取用户信息
           const res = await this.axios.post(urls.login, {
             username: this.loginForm.username,
             password: this.loginForm.password
           })
-          console.log(res)
+          // const res = {data: {}}
+          console.log(resToken)
           if (res.data.status === 0) {
             this.$message({
               type: 'success',
@@ -68,11 +75,10 @@ export default {
       })
     },
     async getToken (username, password) {
-      const res = await this.axios.post(urls.getToken, {
+      return this.axios.post(urls.getToken, {
         username,
         password
       })
-      
     }
   }
 }
