@@ -4,7 +4,7 @@ const urls = {
   'login': '/login',
   'modifyPsw': '/user/modify',
   'logout': '/logout',
-  'catalogList': '/catalog/list',
+  'catalogList': '/api/v1/catalog/list',
   'pv': '/pv'
 }
 

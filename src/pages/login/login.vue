@@ -44,13 +44,9 @@ export default {
           if (resToken.data.token) {
             setStorage(storageKey.TOKEN, resToken.data.token)
           }
-          // TODO: 获取用户信息
-          const res = await this.axios.post(urls.login, {
-            username: this.loginForm.username,
-            password: this.loginForm.password
-          })
-          // const res = {data: {}}
-          console.log(resToken)
+          // console.log(resToken)
+          const res = await this.axios.get(urls.userInfo)
+          console.log(res)
           if (res.data.status === 0) {
             this.$message({
               type: 'success',
