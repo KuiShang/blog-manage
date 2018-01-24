@@ -31,7 +31,7 @@ Vue.config.errorHandler = (err, vm, info) => {
   // handle error
   // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
   // 只在 2.2.0+ 可用
-  console.log('数据监控：', err)
+  console.log('数据监控：', err, vm, info)
 }
 
 Vue.use(VueAxios, axios)

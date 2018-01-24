@@ -29,10 +29,14 @@
 </div>
 </template>
 <script>
+import tagMix from '@/mix/tagMix'
 import edit from './edit'
 export default {
   name: 'tag',
   components: { edit },
+  created () {
+    this.getTags()
+  },
   data () {
     return {
       editData: {},
@@ -41,6 +45,7 @@ export default {
       currentPage: 1
     }
   },
+  mixins: [tagMix],
   methods: {
     pageChange () {
     },

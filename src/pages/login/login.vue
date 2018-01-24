@@ -1,21 +1,21 @@
 <template>
     <div class="main-bg">
-        <div class="login">
-          	<transition name="drop" appear>
-            <el-form :model="loginForm" :rules="rules" ref="loginForm" class="login-form">
-              <div class="title">login</div>
-                <el-form-item prop="username">
-                    <el-input class="form-input" v-model="loginForm.username" placeholder="用户名"><span>dsfsf</span></el-input>
-                </el-form-item>
-                <el-form-item prop="password">
-                    <el-input class="form-input"  type="password" placeholder="密码" v-model="loginForm.password"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="submitForm('loginForm')" class="submit_btn">登陆</el-button>
-                </el-form-item>
-            </el-form>
-            </transition>
-        </div>
+      <div class="login">
+          <transition name="drop" appear>
+          <el-form :model="loginForm" :rules="rules" ref="loginForm" class="login-form">
+            <div class="title">login</div>
+              <el-form-item prop="username">
+                  <el-input class="form-input" v-model="loginForm.username" placeholder="用户名"><span>dsfsf</span></el-input>
+              </el-form-item>
+              <el-form-item prop="password">
+                  <el-input class="form-input"  type="password" placeholder="密码" v-model="loginForm.password"></el-input>
+              </el-form-item>
+              <el-form-item>
+                  <el-button type="primary" @click="submitForm('loginForm')" class="submit_btn">登陆</el-button>
+              </el-form-item>
+          </el-form>
+          </transition>
+      </div>
     </div>
 </template>
 <script>
@@ -33,7 +33,8 @@ export default {
         username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       },
-      loading: false
+      loading: false,
+      dialogTableVisible: true
     }
   },
   methods: {

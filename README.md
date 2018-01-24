@@ -15,8 +15,6 @@
 >  如有问题请直接在 Issues 中提，或者您发现问题并有非常好的解决方案，欢迎 PR 👍
 
 
-
-
 ## 技术栈
 
 vue2 + vuex + vue-router + webpack + ES6/7 + scss + element-ui

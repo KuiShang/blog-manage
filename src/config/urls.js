@@ -5,6 +5,7 @@ const urls = {
   'modifyPsw': '/user/modify',
   'logout': '/logout',
   'catalogList': '/api/v1/catalog/list',
+  'tagList': '/api/v1/tag/list',
   'pv': '/pv'
 }
 

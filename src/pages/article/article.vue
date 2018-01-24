@@ -10,7 +10,7 @@
           </el-form-item>
           <el-form-item label="目录">
               <el-select v-model="queryParams.catalog" placeholder="目录">
-                <el-option v-for="(cata, idx) in catalogs" :key="idx" :label="cata.name" :value="cata.id"></el-option>
+                <el-option v-for="(cata, idx) in catalogs" :key="idx" :label="cata.name" :value="cata.catalog_id"></el-option>
               </el-select>
           </el-form-item>
         </el-form>
@@ -56,7 +56,7 @@
     :before-close="handleClose"
     :fullscreen="true">
       <edit 
-       :data="editData"
+       :editData="editData"
        @save="save"
        @close="closeEdit"
        @cancel="editDialog = false"
@@ -65,8 +65,8 @@
 </div>
 </template>
 <script>
-import urls from '@/config/urls'
 import edit from './edit'
+import catalogMix from '@/mix/catalogMix'
 import { MarkdownPreview } from 'markdown-it-editor'
 const status = {
   2: { text: '已发布', type: 'success' },
@@ -79,19 +79,15 @@ export default {
     return {
       editData: {},
       pageData: {},
-      catalogs: [],
       previewShow: false,
       editDialog: false,
       queryParams: {status: '', catalog: ''},
       currentPage: 1
     }
   },
-  async created () {
-    const res = await this.axios.get(urls.catalogList)
-    console.log(res)
-    if (res.data.status === 0) {
-      this.catalogs = res.data.data
-    }
+  mixins: [catalogMix],
+  created () {
+    this.getCatalogs()
   },
   components: {edit, MarkdownPreview},
   computed: {

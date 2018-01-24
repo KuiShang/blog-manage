@@ -2,6 +2,9 @@ import dateFormat from '../utils/util'
 
 export function datetime (value) {
   if (value) {
+    if (typeof value === 'string') {
+      value = Number(value)
+    }
     let date = new Date(value)
     value = dateFormat(date, 'yyyy-MM-dd hh:mm')
   }

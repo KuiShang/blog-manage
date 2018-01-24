@@ -3,11 +3,19 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 const state = {
   user: {},
-  token: ''
+  token: '',
+  catalogs: [],
+  tags: []
 }
 const mutations = {
   saveUser (state, user) {
     state.user = user
+  },
+  saveCatalogs (state, catalogs) {
+    state.catalogs = catalogs
+  },
+  saveTags (state, tags) {
+    state.tags = tags
   }
 }
 
@@ -16,7 +24,10 @@ const actions = {
     commit('saveUser', user)
   }
 }
-const getters = {}
+const getters = {
+  catalogs: state => state.catalogs,
+  tags: state => state.tags
+}
 
 export default new Vuex.Store({
   state,
