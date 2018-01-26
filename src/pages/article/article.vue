@@ -29,7 +29,13 @@
       </el-table-column>
       <el-table-column label="创建时间" >
         <template slot-scope="scope">
-          <el-date-picker v-model="scope.row.createTime" type="datetime" placeholder="创建时间" :clearable="false" :editable="false" format="yyyy-MM-dd HH:mm" @change="updateCreateTime(scope.row.id, scope.row.createTime)"/>
+          <el-date-picker v-model="scope.row.createTime" 
+          type="datetime" 
+          placeholder="创建时间" 
+          :clearable="false" 
+          :editable="false" 
+          format="yyyy-MM-dd HH:mm" 
+          @change="updateCreateTime(scope.row.id, scope.row.createTime)"/>
         </template>
       </el-table-column>
       <el-table-column label="更新时间" inline-template>
@@ -57,7 +63,7 @@
     :fullscreen="true">
       <edit 
        :editData="editData"
-       @save="save"
+       @save="publish"
        @close="closeEdit"
        @cancel="editDialog = false"
        />
@@ -67,7 +73,9 @@
 <script>
 import edit from './edit'
 import catalogMix from '@/mix/catalogMix'
+import articlePublishMix from '@/mix/articlePublishMix'
 import { MarkdownPreview } from 'markdown-it-editor'
+import urls from '@/config/urls'
 const status = {
   2: { text: '已发布', type: 'success' },
   1: { text: '草稿中', type: '' },
@@ -85,8 +93,9 @@ export default {
       currentPage: 1
     }
   },
-  mixins: [catalogMix],
+  mixins: [catalogMix, articlePublishMix],
   created () {
+    this.getArticleList()
     this.getCatalogs()
   },
   components: {edit, MarkdownPreview},
@@ -99,23 +108,30 @@ export default {
     edit () {
 
     },
+    async getArticleList (pageSize=10, currentPage=1) {
+      const res = await this.axios.get(urls.getArticleList, {
+        pageSize,
+        currentPage
+      })
+      if (res.data.status === 0) {
+        console.log(res.data)
+      }
+    },
     showPreview (article) {
       this.previewShow = true
       this.preview = article
     },
     updateCreateTime (id, time) {
-      if (typeof time === 'number') return
-      this.$post('article/createtime/' + id, {time: time.getTime()}).then(() => {
-        this.$message.success('创建时间修改成功')
-      })
+      // if (typeof time === 'number') return
+      // this.$post('article/createtime/' + id, {time: time.getTime()}).then(() => {
+      //   this.$message.success('创建时间修改成功')
+      // })
     },
     pageChange () {
     },
     closeEdit () {
       this.editDialog = false
       this.loadPage()
-    },
-    save () {
     },
     handleClose (done) {
       this.$confirm('确认关闭？')

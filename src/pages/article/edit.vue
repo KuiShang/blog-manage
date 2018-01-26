@@ -20,12 +20,12 @@
               </el-form-item>
               <el-form-item label="所属栏目" prop="title">
                 <el-select v-model="form.catalogId" placeholder="请选择栏目">
-                  <el-option v-for="cata in catalogs" :key="cata.id" :label="cata.name" :value="cata.catalog_id"/>
+                  <el-option v-for="cata in catalogs" :key="cata.catalog_id" :label="cata.name" :value="cata.catalog_id"/>
                 </el-select>
               </el-form-item>
               <el-form-item label="文章标签" prop="title">
                 <el-select v-model="form.tagIds" placeholder="请选择标签" :multiple=true :filterable=true :allow-create=true>
-                  <el-option v-for="cata in tags" :key="cata.id" :label="cata.name", :value="cata.id"/>
+                  <el-option v-for="cata in tags" :key="cata.tag_id" :label="cata.name" :value="cata.tag_id"/>
                 </el-select>
               </el-form-item>
             </div>
@@ -53,16 +53,17 @@
 import Vue from 'vue'
 import { MarkdownEditor } from 'markdown-it-editor'
 import catalogMix from '@/mix/catalogMix'
+import tagMix from '@/mix/tagMix'
 import 'markdown-it-editor/lib/index.css'
 import MarkdownMix from './MarkdownMix'
 export default {
   name: 'edit',
   async created () {
-    // this.getCatalogs()
+    this.getCatalogs()
+    this.getTags()
   },
   data () {
     return {
-      tags: [],
       form: {content: '', title: '', summary: '', banner: '', catalogId: null, status: 1, tagIds: [], ...this.data},
       rules: {
         title: {required: true}
@@ -75,7 +76,7 @@ export default {
   props: {
     data: Object
   },
-  mixins: [MarkdownMix, catalogMix],
+  mixins: [MarkdownMix, catalogMix, tagMix],
   computed: {
     uploadConfig () {
       return {
@@ -103,11 +104,14 @@ export default {
     uploadSuccess (r) {
       this.form.banner = r
     },
+    generatorSummary () {
+      this.form.summary = this.$refs.editor.getText().replace(/\n/g, ' ').substr(0, 300)
+    },
     saveHistory () {
       if (this.isDraft) {
-        return this.$post('article/save/draft', this.form, { emulateJSON: false }).then(({data}) => {
-          if (this.form.id !== data.id) this.form = {...this.form, id: data.id}
-        })
+        // return this.$post('article/save/draft', this.form, { emulateJSON: false }).then(({data}) => {
+        //   if (this.form.id !== data.id) this.form = {...this.form, id: data.id}
+        // })
       }
     },
     saveDraft () {
@@ -115,8 +119,16 @@ export default {
       this.$emit('close')
     },
     saveAction () {
-      // this.generatorSummary()
+      this.generatorSummary()
+      this.form.status = 2
       this.$emit('save', this.form)
+    }
+  },
+  watch: {
+    'form.content' () {
+      this.$nextTick(() => {
+        this.generatorSummary()
+      })
     }
   }
 }

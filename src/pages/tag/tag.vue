@@ -4,7 +4,7 @@
     <div class="action">
         <el-button type="primary" @click="editDialog = true">新增</el-button>
     </div>
-    <el-table :data="pageData.data">
+    <el-table :data="tags">
       <el-table-column label="名称" prop="name"/>
       <el-table-column label="文章数量" prop="articleCount"/>
       <el-table-column label="操作" >
