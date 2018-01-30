@@ -1,14 +1,22 @@
-const urls = {
-  'getToken': '/api/v1/token',
-  'userInfo': '/api/v1/userinfo',
-  'catalogList': '/api/v1/catalog/list',
-  'tagList': '/api/v1/tag/list',
-  'articlePublish': '/api/v1/article/publish',
-  'getArticleList': '/api/v1/article/list',
-  'login': '/login',
-  'modifyPsw': '/user/modify',
-  'logout': '/logout',
+const CONSTENT = {
+  'getToken': '/v1/token',
+  'userInfo': '/v1/userinfo',
+  'catalogList': '/v1/catalog/list',
+  'tagList': '/v1/tag/list',
+  'articleSave': '/v1/article',
+  'articleDelete': '/v1/article',
+  'getArticleList': '/v1/article',
+  'articlePublish': '/v1/article',
+  'articleUnpublish': '/v1/article',
   'pv': '/pv'
 }
+console.log(CONSTENT)
 
-export default urls
+// class Urls {
+//   getToken () {
+//     return CONSTENT.getToken
+//   }
+// }
+
+// export default new Urls()
+export default CONSTENT

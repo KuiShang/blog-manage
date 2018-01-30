@@ -19,13 +19,13 @@
                 <el-input v-model="form.title" placeholder="请输入标题"></el-input>
               </el-form-item>
               <el-form-item label="所属栏目" prop="title">
-                <el-select v-model="form.catalogId" placeholder="请选择栏目">
-                  <el-option v-for="cata in catalogs" :key="cata.catalog_id" :label="cata.name" :value="cata.catalog_id"/>
+                <el-select v-model="form.catalog_id" placeholder="请选择栏目">
+                  <el-option v-for="cata in catalogs" :key="cata._id" :label="cata.name" :value="cata._id"/>
                 </el-select>
               </el-form-item>
               <el-form-item label="文章标签" prop="title">
-                <el-select v-model="form.tagIds" placeholder="请选择标签" :multiple=true :filterable=true :allow-create=true>
-                  <el-option v-for="cata in tags" :key="cata.tag_id" :label="cata.name" :value="cata.tag_id"/>
+                <el-select v-model="form.tag_ids" placeholder="请选择标签" :multiple=true :filterable=true :allow-create=true>
+                  <el-option v-for="cata in tags" :key="cata._id" :label="cata.name" :value="cata._id"/>
                 </el-select>
               </el-form-item>
             </div>
@@ -50,12 +50,13 @@
   </div>
 </template>
 <<script>
-import Vue from 'vue'
+// import Vue from 'vue'
 import { MarkdownEditor } from 'markdown-it-editor'
 import catalogMix from '@/mix/catalogMix'
 import tagMix from '@/mix/tagMix'
 import 'markdown-it-editor/lib/index.css'
 import MarkdownMix from './MarkdownMix'
+import {uploadPath} from '@/config/env'
 export default {
   name: 'edit',
   async created () {
@@ -64,7 +65,7 @@ export default {
   },
   data () {
     return {
-      form: {content: '', title: '', summary: '', banner: '', catalogId: null, status: 1, tagIds: [], ...this.data},
+      form: {content: '', title: '', summary: '', banner: '', catalog_id: null, status: 1, tag_ids: []},
       rules: {
         title: {required: true}
       }
@@ -80,7 +81,8 @@ export default {
   computed: {
     uploadConfig () {
       return {
-        url: Vue.globalOptions.uploadUrl,
+        // url: Vue.globalOptions.uploadUrl,
+        url: uploadPath,
         name: 'file',
         accept: 'image/jpg,image/jpeg,image/png,image/gif',
         header: this.mix_headers

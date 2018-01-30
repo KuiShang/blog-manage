@@ -15,16 +15,13 @@ import VueAxios from 'vue-axios'
 require('./style/index.scss')
 const isProd = process.env.NODE_ENV === 'production'
 // vue设置
-let uploadUrl = ''
 if (isProd) {
   Vue.config.performance = false
   Vue.config.productionTip = false
   Vue.config.silent = true
-  uploadUrl = 'http://file.diamondfsd.com/upload'
 } else {
   Vue.config.performance = true
   Vue.config.productionTip = true
-  uploadUrl = 'http://localhost:22222/upload'
 }
 
 Vue.config.errorHandler = (err, vm, info) => {
@@ -41,9 +38,7 @@ Vue.use(ElementUI)
 Object.keys(filters).forEach(k => {
   Vue.filter(k, filters[k])
 })
-Vue.globalOptions = {
-  uploadUrl: uploadUrl
-}
+
 Vue.mixin({
   computed: {
     mix_headers () {
