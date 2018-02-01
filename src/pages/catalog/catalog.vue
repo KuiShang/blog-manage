@@ -20,8 +20,8 @@
       <el-table-column label="操作" >
         <template slot-scope="scope">
           <div>
-            <el-button type="primary" size="mini">编辑</el-button>
-            <el-button type="primary" size="mini">删除</el-button>
+            <el-button type="primary" size="mini" @click="edit(scope.row.id)" >编辑</el-button>
+            <el-button type="danger" size="mini" @click="remove(scope.row.id)">删除</el-button>
           </div>
         </template>
       </el-table-column>
@@ -41,6 +41,8 @@
 <script>
 import edit from './edit'
 import catalogMix from '@/mix/catalogMix'
+
+const CATALOG_URL = '/v1/catalog/'
 export default {
   name: 'catalog',
   components: { edit },
@@ -59,9 +61,23 @@ export default {
   methods: {
     pageChange () {
     },
-    save () {
+    edit (id) {
+
+    },
+    remove (id) {
+
+    },
+    async save () {
+      console.log('save')
+      const res = await this.axios.post(CATALOG_URL + '/v1/catalog')
+      if (res.data.status === 0) {
+        this.$store.commit('saveCatalogs', res.data.data)
+      }
+      this.editDialog = false
     },
     closeEdit () {
+      console.log('close')
+      this.editDialog = false
     }
   }
 }

@@ -48,7 +48,7 @@
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="publish(scope.row.id)" v-if='scope.row.status === 1'>发布</el-button>
           <el-button type="primary" size="small" @click="unpublish(scope.row.id)" v-if='scope.row.status === 2'>取消发布</el-button>
-          <el-button type="primary" size="small" >编辑</el-button>
+          <el-button type="primary" size="small" @click="edit(scope.row.id)">编辑</el-button>
           <el-button type="danger" size="small" v-if="scope.row.status !== 0" @click="remove(scope.row.id)">删除</el-button>
           <el-button type="success" size="small" v-if="scope.row.status === 0">恢复</el-button>
         </template>
@@ -65,6 +65,7 @@
     :before-close="handleClose"
     :fullscreen="true">
       <edit 
+      v-if="editDialog"
        ref="edit"
        :editData="editData"
        @save="save"
@@ -93,6 +94,7 @@ export default {
     return {
       editData: {},
       pageData: {},
+      isNewArticle: true,
       previewShow: false,
       editDialog: false,
       queryParams: {status: '', catalog: ''},
@@ -114,7 +116,12 @@ export default {
   methods: {
     async save (article) {
       this.saveLoading = true
-      const res = await this.axios.post(ARTICLE_URL, article)
+      let res
+      if (this.isNewArticle) {
+        res = await this.axios.post(ARTICLE_URL, article)
+      } else {
+        res = await this.axios.put(ARTICLE_URL, article)
+      }
       this.saveLoading = false
 
       if (res.data.status === 0) {
@@ -184,8 +191,14 @@ export default {
         }
       }
     },
-    edit () {
-
+    async edit (id) {
+      this.isNewArticle = false
+      this.editDialog = true
+      let ret = await this.axios.get(ARTICLE_URL + id)
+      if (ret.data.status === 0) {
+        this.editData = ret.data.data
+      }
+      console.log(ret)
     },
     async getArticleList (pageSize = 10, currentPage = 1) {
       const res = await this.axios.get(ARTICLE_URL, {
@@ -212,18 +225,22 @@ export default {
     },
     closeEdit () {
       this.editDialog = false
+      this.editData = {}
       this.getArticleList()
     },
     handleClose (done) {
       let content = this.$refs.edit.form.content
+      this.editData = {}
       if (content.length > 0) {
         this.$confirm('内容还未保存,确认关闭？')
         .then(_ => {
           done()
+          this.isNewArticle = true
         })
         .catch(_ => {})
       } else {
         done()
+        this.isNewArticle = true
       }
     }
   }

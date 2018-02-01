@@ -56,16 +56,17 @@ import catalogMix from '@/mix/catalogMix'
 import tagMix from '@/mix/tagMix'
 import 'markdown-it-editor/lib/index.css'
 import MarkdownMix from './MarkdownMix'
-import {uploadPath} from '@/config/env'
+import {uploadPath, baseImgPath} from '@/config/env'
 export default {
   name: 'edit',
   async created () {
     this.getCatalogs()
     this.getTags()
+    console.log(this.editData)
   },
   data () {
     return {
-      form: {content: '', title: '', summary: '', banner: '', catalog_id: null, status: 1, tag_ids: []},
+      form: {content: '', title: '', summary: '', banner: '', catalog_id: null, status: 1, tag_ids: [], ...this.editData},
       rules: {
         title: {required: true}
       }
@@ -75,7 +76,7 @@ export default {
     MarkdownEditor
   },
   props: {
-    data: Object
+    editData: Object
   },
   mixins: [MarkdownMix, catalogMix, tagMix],
   computed: {
@@ -104,7 +105,7 @@ export default {
       this.$message.error('upload error: ' + (e.responseText || e))
     },
     uploadSuccess (r) {
-      this.form.banner = r
+      this.form.banner = baseImgPath + r.image_path
     },
     generatorSummary () {
       this.form.summary = this.$refs.editor.getText().replace(/\n/g, ' ').substr(0, 300)
@@ -131,7 +132,14 @@ export default {
       this.$nextTick(() => {
         this.generatorSummary()
       })
+    },
+    editData (newdata, old) {
+      this.form = {...this.form, ...newdata}
+      console.log(newdata, old)
     }
+  },
+  destroyed () {
+    console.log(123)
   }
 }
 </script>

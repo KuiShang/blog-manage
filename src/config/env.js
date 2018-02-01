@@ -10,7 +10,8 @@ let baseImgPath
 let uploadPath
 if (process.env.NODE_ENV === 'development') {
   baseUrl = 'http://127.0.0.1:9528/'
-  baseImgPath = 'http://127.0.0.1:9528/img/'
+  // baseUrl = ''
+  baseImgPath = 'http://127.0.0.1:9528/upload/'
   uploadPath = baseUrl + 'v1/upload/'
 } else {
   baseUrl = 'http://api.lovebugs.cc'
