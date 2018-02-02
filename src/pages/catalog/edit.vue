@@ -4,11 +4,8 @@
           <el-form-item label="栏目名称" prop="name">
               <el-input v-model="form.name" placeholder="栏目名称"></el-input>
           </el-form-item>
-          <el-form-item label="栏目描述" prop="description">
-              <el-input v-model="form.description" placeholder="栏目描述"></el-input>
-          </el-form-item>
-          <el-form-item label="排序" prop="sort">
-              <el-input v-model="form.sort" placeholder="排序"></el-input>
+          <el-form-item label="栏目描述" prop="des">
+              <el-input v-model="form.des" placeholder="栏目描述"></el-input>
           </el-form-item>
           <el-form-item >
               <el-button @click="$emit('cancel')">取消</el-button>
@@ -23,16 +20,31 @@ export default {
   name: 'edit',
   data () {
     return {
-      form: {name: '', description: '', sort: 0, ...this.editData},
+      form: {name: '', des: ''},
       rules: {
         name: {required: true}
       }
     }
   },
-  props: ['editData'],
+  props: ['editData', 'isNew'],
   methods: {
     saveAction () {
-      this.$emit('save', this.form)
+      if (this.isNew) {
+        this.$emit('save', this.form)
+      } else {
+        this.$emit('modify', this.form)
+      }
+    }
+  },
+  watch: {
+    editData (newdata, old) {
+      this.form = {...this.form, ...newdata}
+      if (this.isNew) {
+        for (let key in this.form) {
+          this.form[key] = ''
+        }
+      }
+      console.log(newdata, old)
     }
   }
 }

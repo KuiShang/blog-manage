@@ -4,15 +4,11 @@ Vue.use(Vuex)
 const state = {
   user: {},
   token: '',
-  catalogs: [],
   tags: []
 }
 const mutations = {
   saveUser (state, user) {
     state.user = user
-  },
-  saveCatalogs (state, catalogs) {
-    state.catalogs = catalogs
   },
   saveTags (state, tags) {
     state.tags = tags
