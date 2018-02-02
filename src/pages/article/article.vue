@@ -1,6 +1,6 @@
 <template>
 <div class="article">
-    <el-button type="primary" @click="editDialog = true">新增</el-button>
+    
     <div class="filter">
         <el-form :inline="true">
           <el-form-item label="状态">
@@ -12,6 +12,9 @@
               <el-select v-model="queryParams.catalog" placeholder="目录">
                 <el-option v-for="(cata, idx) in catalogs" :key="idx" :label="cata.name" :value="cata._id"></el-option>
               </el-select>
+          </el-form-item>
+          <el-form-item label="  ">
+            <el-button type="primary" @click="editDialog = true">新增文章</el-button>
           </el-form-item>
         </el-form>
     </div>
@@ -120,7 +123,7 @@ export default {
       if (this.isNewArticle) {
         res = await this.axios.post(ARTICLE_URL, article)
       } else {
-        res = await this.axios.put(ARTICLE_URL, article)
+        res = await this.axios.put(ARTICLE_URL + article.id, article)
       }
       this.saveLoading = false
 

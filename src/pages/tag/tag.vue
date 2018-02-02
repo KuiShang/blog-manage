@@ -11,7 +11,7 @@
         <template slot-scope="scope">
           <div>
             <el-button type="primary" size="mini">编辑</el-button>
-            <el-button type="primary" size="mini">删除</el-button>
+            <el-button type="danger" size="mini">删除</el-button>
           </div>
         </template>
       </el-table-column>

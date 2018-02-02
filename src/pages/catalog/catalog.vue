@@ -6,7 +6,6 @@
     <el-table :data="catalogs">
       <el-table-column label="名称" prop="name"/>
       <el-table-column label="描述" prop="des"/>
-      <el-table-column label="排序" prop="catalog_id"/>
       <el-table-column label="创建时间" >
         <template slot-scope="scope">
           <span>{{scope.row.create_time| datetime}}</span>
@@ -20,8 +19,8 @@
       <el-table-column label="操作" >
         <template slot-scope="scope">
           <div>
-            <el-button type="primary" size="mini" @click="edit(scope.row.id)" >编辑</el-button>
-            <el-button type="danger" size="mini" @click="remove(scope.row.id)">删除</el-button>
+            <el-button type="primary" size="mini" @click="edit(scope.row._id)" >编辑</el-button>
+            <el-button type="danger" size="mini" @click="remove(scope.row._id)">删除</el-button>
           </div>
         </template>
       </el-table-column>
@@ -29,12 +28,16 @@
     <div class="pagination">
         <el-pagination :total="pageData.total" :current-page="pageData.pageSize" :page-size="currentPage" @current-change="pageChange" layout="prev, pager, next"></el-pagination>
     </div>
-    <el-dialog title="新增" :visible.sync="editDialog">
-        <edit        
-        :data="editData"
-        @save="save"
-        @close="closeEdit"
-        @cancel="editDialog = false"/>
+    <el-dialog title="新增" 
+    :visible.sync="editDialog"
+    @close="dialogClose"
+    >
+      <edit
+      :isNew="isNew"
+      :editData="editData"
+      @save="save"
+      @modify="modify"
+      @cancel="editDialog = false"/>
     </el-dialog>
 </div>
 </template>
@@ -51,6 +54,7 @@ export default {
       editData: {},
       pageData: {},
       editDialog: false,
+      isNew: true,
       currentPage: 1
     }
   },
@@ -61,23 +65,40 @@ export default {
   methods: {
     pageChange () {
     },
-    edit (id) {
-
+    async edit (id) {
+      console.log(id)
+      this.editDialog = true
+      this.isNew = false
+      let ret = await this.axios.get(CATALOG_URL + id)
+      if (ret.data.status === 0) {
+        this.editData = ret.data.data
+      }
+      console.log(ret)
     },
     remove (id) {
 
     },
-    async save () {
+    async save (data) {
       console.log('save')
-      const res = await this.axios.post(CATALOG_URL + '/v1/catalog')
+      const res = await this.axios.post(CATALOG_URL, data)
+      console.log(res)
+      this.editDialog = false
       if (res.data.status === 0) {
-        this.$store.commit('saveCatalogs', res.data.data)
+        this.getCatalogs()
       }
-      this.editDialog = false
     },
-    closeEdit () {
-      console.log('close')
+    async modify (data) {
+      console.log('modify')
+      const res = await this.axios.put(CATALOG_URL + data._id, data)
+      console.log(res)
       this.editDialog = false
+      if (res.data.status === 0) {
+        this.getCatalogs()
+      }
+    },
+    dialogClose () {
+      this.editData = {}
+      this.isNew = true
     }
   }
 }
