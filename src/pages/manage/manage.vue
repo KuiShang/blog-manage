@@ -4,7 +4,7 @@
       <edit :data="editData" @save="modifyPsw" v-loading="saveLoading" />
     </el-dialog>
     <el-row style="height: 100%;">
-      <el-col :span="4" class="nav">
+      <el-col :span="3" class="nav">
           <el-menu 
             ref="elmenu"
             class="nav-menu" 
@@ -50,7 +50,7 @@
           </el-menu>
       </el-col>
 
-      <el-col :span = "menuShow ? 20: 24" class="content">
+      <el-col :span = "menuShow ? 21: 24" class="content">
         <div class="content-header">
           <header class="header">
             <h2 class="title">{{defaultItem.text || $route.title}}</h2>

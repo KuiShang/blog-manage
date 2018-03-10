@@ -83,12 +83,11 @@
 import edit from './edit'
 import catalogMix from '@/mix/catalogMix'
 // import articlePublishMix from '@/mix/articlePublishMix'
-import { MarkdownPreview } from 'markdown-it-editor'
+// import { MarkdownPreview } from 'markdown-it-editor'
 // import urls from '@/config/urls'
 const status = {
   2: { text: '已发布', type: 'success' },
-  1: { text: '草稿中', type: '' },
-  0: { text: '已删除', type: 'danger' }
+  1: { text: '草稿中', type: '' }
 }
 const ARTICLE_URL = '/v1/article/'
 export default {
@@ -110,7 +109,7 @@ export default {
     this.getArticleList()
     this.getCatalogs()
   },
-  components: {edit, MarkdownPreview},
+  components: {edit},
   computed: {
     status () {
       return status

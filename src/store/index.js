@@ -3,8 +3,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 const state = {
   user: {},
-  token: '',
-  tags: []
+  token: ''
 }
 const mutations = {
   saveUser (state, user) {

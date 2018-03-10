@@ -56,7 +56,7 @@ import catalogMix from '@/mix/catalogMix'
 import tagMix from '@/mix/tagMix'
 import 'markdown-it-editor/lib/index.css'
 import MarkdownMix from './MarkdownMix'
-import {uploadPath, baseImgPath} from '@/config/env'
+import {uploadPath} from '@/config/env'
 export default {
   name: 'edit',
   async created () {
@@ -104,8 +104,8 @@ export default {
     uploadError (e) {
       this.$message.error('upload error: ' + (e.responseText || e))
     },
-    uploadSuccess (r) {
-      this.form.banner = baseImgPath + r.image_path
+    uploadSuccess (path) {
+      this.form.banner = path
     },
     generatorSummary () {
       this.form.summary = this.$refs.editor.getText().replace(/\n/g, ' ').substr(0, 300)
@@ -139,7 +139,7 @@ export default {
     }
   },
   destroyed () {
-    console.log(123)
+    console.log('destroyed')
   }
 }
 </script>

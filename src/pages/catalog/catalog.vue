@@ -1,7 +1,7 @@
 <template>
 <div class="catlog">
     <div class="action">
-        <el-button type="primary" @click="editDialog = true">新增</el-button>
+        <el-button type="primary" @click="editDialog = true">新增目录</el-button>
     </div>
     <el-table :data="catalogs">
       <el-table-column label="名称" prop="name"/>

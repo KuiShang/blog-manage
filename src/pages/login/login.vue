@@ -8,7 +8,12 @@
                   <el-input class="form-input" v-model="loginForm.username" placeholder="用户名"><span>dsfsf</span></el-input>
               </el-form-item>
               <el-form-item prop="password">
-                  <el-input class="form-input"  type="password" placeholder="密码" v-model="loginForm.password"></el-input>
+                  <el-input class="form-input" 
+                  type="password" 
+                  placeholder="密码" 
+                  v-model="loginForm.password"
+                  @blur="submitForm('loginForm')"
+                  ></el-input>
               </el-form-item>
               <el-form-item>
                   <el-button type="primary" @click="submitForm('loginForm')" class="submit_btn">登陆</el-button>

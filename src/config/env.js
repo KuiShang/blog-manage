@@ -6,21 +6,17 @@
  */
 let baseUrl = ''
 let routerMode = 'history'
-let baseImgPath
 let uploadPath
 if (process.env.NODE_ENV === 'development') {
   baseUrl = 'http://127.0.0.1:9528/'
   // baseUrl = ''
-  baseImgPath = 'http://127.0.0.1:9528/upload/'
   uploadPath = baseUrl + 'v1/upload/'
 } else {
   baseUrl = 'http://api.lovebugs.cc'
-  baseImgPath = 'http://file.lovebugs.cc/img/'
   uploadPath = 'http://file.lovebugs.cc/upload/'
 }
 export {
   baseUrl,
   routerMode,
-  uploadPath,
-  baseImgPath
+  uploadPath
 }
