@@ -155,7 +155,6 @@ export default {
     position: absolute;
     top: 9px;
     right: 100px;
-
 }
 
 </style>
