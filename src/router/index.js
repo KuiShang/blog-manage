@@ -13,7 +13,7 @@ const NotFoundComponent = r => require.ensure([], () => r(require('@/pages/NotFo
 
 Vue.use(Router)
 export default new Router({
-  mode: 'history',
+  mode: '',
   routes: [
     {
       path: '/',

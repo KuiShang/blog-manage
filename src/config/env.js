@@ -5,7 +5,8 @@
  * baseImgPath: 图片存放地址
  */
 let baseUrl = ''
-let routerMode = 'history'
+// let routerMode = 'history'
+let routerMode = ''
 let uploadPath
 if (process.env.NODE_ENV === 'development') {
   baseUrl = 'http://127.0.0.1:9528/'
