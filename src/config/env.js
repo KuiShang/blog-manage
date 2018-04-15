@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'development') {
   // baseUrl = 'http://api.lovebugs.top'
   // uploadPath = 'http://file.lovebugs.cc/upload/'
   baseUrl = 'http://59.110.223.161:9528/'
-  uploadPath = 'http://59.110.223.161:9528/upload/'
+  uploadPath = 'http://59.110.223.161:9528/v1/upload/'
 }
 export {
   baseUrl,
